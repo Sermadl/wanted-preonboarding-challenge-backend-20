@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.wantedmarket.item.domain.entity.Item;
 
+import java.util.Optional;
+
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findAll(Pageable pageable);
 }

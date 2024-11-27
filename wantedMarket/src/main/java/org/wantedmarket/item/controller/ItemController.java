@@ -34,4 +34,11 @@ public class ItemController extends CommonController {
     public void registerItem(@RequestBody ItemRegisterRequest request, HttpServletRequest httpServletRequest) {
         itemService.register(request, getLoginMemberId(httpServletRequest));
     }
+
+    @PatchMapping("/{itemId}")
+    public void updateItem(@PathVariable Long itemId,
+                           @RequestBody ItemRegisterRequest request,
+                           HttpServletRequest httpServletRequest) {
+        itemService.update(itemId, request, getLoginMemberId(httpServletRequest));
+    }
 }

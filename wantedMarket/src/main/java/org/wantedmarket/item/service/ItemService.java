@@ -51,6 +51,23 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional
+    public void update(Long itemId, ItemRegisterRequest request, Long memberId) {
+        log.info("User info: {}", memberId);
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        if(item.getStatus() != ItemStatus.ON_SALE) throw new RuntimeException("Not available to update item(It's not on sale)");
+
+        item.updateItem(
+                request.getName(),
+                request.getDescription(),
+                request.getPrice(),
+                request.getQuantity()
+        );
+    }
+
     private Page<ItemPreviewResponse> getAllItems(Page<Item> items) {
         return items.map(
                 currItem ->
